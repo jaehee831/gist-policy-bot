@@ -1,0 +1,4 @@
+c:\Users\wonhy\OneDrive\Desktop\gist-policy-bot\Data\FR00602 여비규칙_1.txt
+c:\Users\wonhy\OneDrive\Desktop\gist-policy-bot\Data\FR00602 여비규칙_국내출장비.txt
+c:\Users\wonhy\OneDrive\Desktop\gist-policy-bot\Data\FR00602 여비규칙_국외출장비.txt
+c:\Users\wonhy\OneDrive\Desktop\gist-policy-bot\Data\FR00602 여비규칙_보칙.txt
