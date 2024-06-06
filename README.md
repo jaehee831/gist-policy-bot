@@ -1,1 +1,1 @@
-# gist-policy-bot
+# POLIGI : Gist-policy-bot
