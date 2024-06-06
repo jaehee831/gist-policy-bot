@@ -8,7 +8,7 @@
 * 24.05.05 - 22.06.06
 
 ## 개발 환경
-![temp_1717685907741 1018538114](https://github.com/jaehee831/gist-policy-bot/assets/79001832/6a785f1c-3379-4242-92b3-53edd1310240)
+![temp_1717685961465 853110627](https://github.com/jaehee831/gist-policy-bot/assets/79001832/cdf84611-959a-4116-8601-5c14166561ba)
 
 ## 멤버 구성
 - 배성호 - 발표 자료 제작, 제품 프로토타입 제작, 데이터 전처리 및 수집
@@ -37,4 +37,4 @@ streamlit run gpt.py
 (환경변수의 OPEN_API_KEY에 자신만의 ChatGPT API Key가 설정되어야 사용 할 수 있음.)
 
 ### 활용 예시
-
+![temp_1717685907741 1018538114](https://github.com/jaehee831/gist-policy-bot/assets/79001832/6a785f1c-3379-4242-92b3-53edd1310240)
