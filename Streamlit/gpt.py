@@ -116,16 +116,12 @@ def generate_answer(query, conversation_history, top_k=2):
     if language == 'ko':
         system_message = ("이 챗봇은 광주과학기술원(GIST) 구성원들의 규정 관련 질문에 대한 답변을 제공하기 위해 "
                           "만들어진 챗봇입니다. 챗봇은 데이터베이스에 있는 정보를 기반으로 질문에 답변합니다. "
-                          "데이터베이스에 해당 정보가 없는 경우 다음과 같이 응답해야 합니다: [죄송합니다, 이 정보는 GIST 규정 데이터베이스에서 "
-                          "찾을 수 없습니다. 해당 부서에 문의하여 도움을 받으시기 바랍니다. (GIST 기획팀 황인호 팀장 062-715-2971)]라는 "
-                          "안내가 표시됩니다. 또한 사용자의 질문이 불완전한 경우 챗봇은 데이터베이스를 기반으로 추가 정보를 요청해야 합니다. "
+                          "또한 사용자의 질문이 불완전한 경우 챗봇은 데이터베이스를 기반으로 추가 정보를 요청해야 합니다. "
                           "예를 들어 '보다 정확한 답변을 드리기 위해 몇 가지 추가 정보가 필요합니다. 필요한 추가 정보]와 같은 세부 정보를 "
                           "제공해 주시겠습니까?")
     else:
         system_message = ("This GPT is a chatbot designed to provide answers to questions related to regulations for members of the Gwangju Institute of Science and Technology (GIST). "
-                          "It should respond in a friendly manner. The chatbot will answer questions based on information in the database. If the information is not available in the database, "
-                          "it should respond as follows: [Sorry, this information is not available in the GIST regulations database. Please contact the relevant department for assistance. "
-                          "(GIST 기획팀 황인호 팀장 062-715-2971)] Additionally, if the user's question is incomplete, the chatbot should request additional information based on the database. "
+                          "It should respond in a friendly manner. The chatbot will answer questions based on information in the database.Additionally, if the user's question is incomplete, the chatbot should request additional information based on the database. "
                           "For example: [To provide you with a more accurate answer, I need some additional information. Could you please provide details such as [necessary additional information]?")
     conversation_history.append({"role": "user", "content": query})
 
@@ -145,8 +141,6 @@ def generate_answer(query, conversation_history, top_k=2):
     return answer, references, conversation_history
 
 
-conversation_history = []
-
 # Streamlit 앱 설정
 st.image(r"..\poligi.png", use_column_width=True)
 st.header("🤖 Gist Policy App (Demo)")
@@ -157,12 +151,15 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
+if 'conversation_history' not in st.session_state:
+    st.session_state['conversation_history'] = []
+
 with st.form('form', clear_on_submit=True):
     user_input = st.text_input('질문: ', '', key='input')
     submitted = st.form_submit_button('전송')
 
 if submitted and user_input:
-    answer, references, conversation_history = generate_answer(user_input, conversation_history)
+    answer, references, st.session_state['conversation_history'] = generate_answer(user_input, st.session_state['conversation_history'])
     st.session_state.past.append(user_input)
     st.session_state.generated.append((answer, references))
 
