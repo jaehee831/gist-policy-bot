@@ -1,8 +1,9 @@
+![Group 1](https://github.com/jaehee831/gist-policy-bot/assets/45239582/c8040cb6-c5b3-4708-80fd-3332f1d8b8e7)
 # POLIGI : Gist-policy-bot
 광주과학기술원 원내규정집 바탕 챗봇
 
 ## 프로젝트 소개
-광주과학기술원의 원내규정집을 VectorDB로 만들어 원내구성원들에게 챗봇 형식으로 응답하는 프로젝트입니다. 출장, 재무, 근로, 휴학, 장학, 여비, 휴가 등 다양한 분야에 대해 원규집을 바탕으로 정확한 응답을 생성합니다.
+광주과학기술원의 원내규정집을 VectorDB에 저장한 후 retrieval한 내용을 바탕으로 원내구성원들에게 챗봇 형식으로 응답하는 프로젝트입니다. 출장, 재무, 근로, 휴학, 장학, 여비, 휴가 등 다양한 분야에 대해 원규집을 바탕으로 정확한 응답을 생성합니다.
 
 ## 개발 기간
 * 24.05.05 - 22.06.06
@@ -41,5 +42,10 @@ streamlit run gpt.py
 
 (환경변수의 OPEN_API_KEY에 자신만의 ChatGPT API Key가 설정되어야 사용 할 수 있음.)
 
-### 활용 예시
+## 활용 예시
 ![temp_1717685907741 1018538114](https://github.com/jaehee831/gist-policy-bot/assets/79001832/6a785f1c-3379-4242-92b3-53edd1310240)
+
+## 실행 화면
+https://github.com/jaehee831/gist-policy-bot/assets/45239582/e2fe326d-36c6-47a3-a018-00e0cdf7ce1f
+
+
