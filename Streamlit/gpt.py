@@ -6,17 +6,23 @@ from dotenv import load_dotenv, find_dotenv
 import streamlit as st
 from langdetect import detect
 
+# 바뀐 부분
+api_key = os.getenv('API_KEY')
+
+if not api_key:
+    raise FileNotFoundError("환경 변수를 찾을 수 없습니다.")
+
 # .env 파일 로드
-dotenv_path = find_dotenv()
-if dotenv_path:
-    load_dotenv(dotenv_path)
-else:
-    raise FileNotFoundError(".env 파일을 찾을 수 없습니다.")
+# dotenv_path = find_dotenv()
+#if dotenv_path:
+#    load_dotenv(dotenv_path)
+#else:
+#    raise FileNotFoundError(".env 파일을 찾을 수 없습니다.")
 
 # 환경 변수에서 API 키 가져오기
-api_key = os.getenv('OPENAI_API_KEY')
-if api_key is None:
-    raise ValueError("OPENAI_API_KEY 환경 변수가 설정되지 않았습니다.")
+#api_key = os.getenv('OPENAI_API_KEY')
+#if api_key is None:
+#    raise ValueError("OPENAI_API_KEY 환경 변수가 설정되지 않았습니다.")
 openai.api_key = api_key
 
 
