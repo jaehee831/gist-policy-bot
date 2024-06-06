@@ -9,7 +9,7 @@ from langdetect import detect
 # 바뀐 부분
 api_key = os.getenv('API_KEY')
 
-if not api_key or not other_secret:
+if not api_key:
     raise FileNotFoundError("환경 변수를 찾을 수 없습니다.")
 
 # .env 파일 로드
