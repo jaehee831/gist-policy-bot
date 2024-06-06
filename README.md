@@ -16,9 +16,9 @@
 
 ## 사용 방법
 Streamlit 폴더 내부에서
-'''
+```
 streamlit run gpt.py
-'''
+```
 실행.
 
 (환경변수의 OPEN_API_KEY에 자신만의 ChatGPT API Key가 설정되어야 사용 할 수 있음.)
