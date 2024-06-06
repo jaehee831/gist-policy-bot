@@ -10,7 +10,10 @@
 ## 개발 환경
 ![temp_1717685961465 853110627](https://github.com/jaehee831/gist-policy-bot/assets/79001832/cdf84611-959a-4116-8601-5c14166561ba)
 
-## 멤버 구성
+## 팀원
+| 배성호 [@oy6uns](https://github.com/oy6uns) | 전우석 [@usok1ng](https://github.com/usok1ng) | 최원혁 [@skylartosf](https://github.com/skylartosf) | 이재희 [@jaehee831](https://github.com/jaehee831) | 지유나 [@younaji](https://github.com/younaji) |
+| :---: | :---: | :---: | :---: | :---: |
+|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/e4cf67ae-bda3-474a-8840-bc424b289434">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/e4dbced3-ac8d-4dc1-af2f-332361976e1d">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/93c1054f-7d1f-4dbb-8dc2-97da7e185dd5">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/df63249d-f1ed-4042-82ba-8e75b4cef258">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/5fa03616-960a-4fd3-af8b-acb1237e1dde">|
 - 배성호 - 발표 자료 제작, 제품 프로토타입 제작, 데이터 전처리 및 수집
 - 전우석 - 발표 자료 제작, 인터뷰, 데이터 전처리 및 수집
 - 최원혁 - RAG 기능 구현 및 파이프라인 연결, 텍스트 파일 DB화
@@ -18,16 +21,16 @@
 - 지유나 - 프롬프트 엔지니어링, 데이터 전처리 및 수집
   
 ## 주요 기능
-#### 원규 관련 질문
-사용자는 광주과학기술원 원규집에 나와있는 내용들을 챗봇을 통해 쉽고 빠르게 물어볼 수 있습니다.
+### 📌 원규 관련 질문
+사용자는 광주과학기술원 원규집에 나와있는 내용들을 챗봇을 통해 쉽고 빠르게 물어볼 수 있습니다.   
 예시 : 해외로 출장을 가려는데, 내가 어떤 종류의 여비를 지원받을 수 있을까?
-#### 사용자 채팅 내역 기록
+### 📌 사용자 채팅 내역 기록
 챗봇은 사용자의 채팅 내역을 chat_history 변수에 저장함으로써 사용자의 채팅 내역을 기록합니다. 즉, 이전에 입력했던 정보를 불필요하게 다시 입력할 필요가 없습니다.
-#### 해당 원규의 온라인 링크 제공
+### 📌 해당 원규의 온라인 링크 제공
 해당 답변을 제공한 원규의 정확한 내용을 온라인 링크로 제공합니다.
-#### 정확한 답변을 위한 추가 정보 요구
+### 📌 정확한 답변을 위한 추가 정보 요구
 사용자의 질문에 정확하게 답변하기 위해 추가적인 정보를 사용자에게 물어봅니다. 챗봇과 대화하는 과정을 통해 사용자는 더 정확한 답변을 얻을 수 있습니다.
-#### 다양한 언어 제공
+### 📌 다양한 언어 제공
 사용자의 질문 언어를 자동으로 감지하여, 해당 언어로 다시 답변합니다. 현재 한국어와 영어 두 가지 언어를 지원하고 있습니다.
 ## 사용 방법
 Streamlit 폴더 내부에서
