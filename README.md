@@ -12,14 +12,15 @@
 ![temp_1717685961465 853110627](https://github.com/jaehee831/gist-policy-bot/assets/79001832/cdf84611-959a-4116-8601-5c14166561ba)
 
 ## 팀원
-| 배성호 [@oy6uns](https://github.com/oy6uns) | 전우석 [@usok1ng](https://github.com/usok1ng) | 최원혁 [@skylartosf](https://github.com/skylartosf) | 이재희 [@jaehee831](https://github.com/jaehee831) | 지유나 [@younaji](https://github.com/younaji) |
+| 배성호 [@oy6uns](https://github.com/oy6uns) | 전우석 [@usok1ng](https://github.com/usok1ng) | 최원혁 [@Wonhyeok316](https://github.com/Wonhyeok316) | 이재희 [@jaehee831](https://github.com/jaehee831) | 지유나 [@younaji](https://github.com/younaji) |
 | :---: | :---: | :---: | :---: | :---: |
-|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/e4cf67ae-bda3-474a-8840-bc424b289434">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/e4dbced3-ac8d-4dc1-af2f-332361976e1d">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/93c1054f-7d1f-4dbb-8dc2-97da7e185dd5">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/df63249d-f1ed-4042-82ba-8e75b4cef258">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/5fa03616-960a-4fd3-af8b-acb1237e1dde">|
+|<img width="900" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/708221c9-ecd6-4fce-ae84-dc0e06489005">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/e4dbced3-ac8d-4dc1-af2f-332361976e1d">|<img width="600" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/93c1054f-7d1f-4dbb-8dc2-97da7e185dd5">|<img width="800" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/df63249d-f1ed-4042-82ba-8e75b4cef258">|<img width="900" src="https://github.com/jaehee831/gist-policy-bot/assets/45239582/cfe58a2e-3921-4a9d-9f37-373d2b5c73a5">|
 - 배성호 - 발표 자료 제작, 제품 프로토타입 제작, 데이터 전처리 및 수집
 - 전우석 - 발표 자료 제작, 인터뷰, 데이터 전처리 및 수집
 - 최원혁 - RAG 기능 구현 및 파이프라인 연결, 텍스트 파일 DB화
 - 이재희 - 인터뷰, 프론트엔드(Streamlit) 제작
 - 지유나 - 프롬프트 엔지니어링, 데이터 전처리 및 수집
+
   
 ## 주요 기능
 ### 📌 원규 관련 질문
