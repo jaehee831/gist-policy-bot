@@ -19,9 +19,12 @@ if api_key is None:
     raise ValueError("OPENAI_API_KEY 환경 변수가 설정되지 않았습니다.")
 openai.api_key = api_key
 
-# 현재 디렉토리 설정
-current_dir = os.getcwd()
-vector_db_dir = os.path.join(current_dir, '..\VectorDB')
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+vector_db_dir = os.path.join(current_dir, '..', 'VectorDB')
+# # 현재 디렉토리 설정
+# current_dir = os.getcwd()
+# vector_db_dir = os.path.join(current_dir, '..\VectorDB')
 
 # FAISS 인덱스 로드
 index = faiss.read_index(os.path.join(vector_db_dir, 'vector_db.index'))
@@ -34,46 +37,48 @@ with open(os.path.join(vector_db_dir, 'file_paths.txt'), 'r', encoding='utf-8') 
 # 모든 문서 로드
 documents = []
 for path in file_paths:
+    print(path)
     with open(path, 'r', encoding='utf-8') as file:
         documents.append(file.read())
 
+
 # 파일 경로와 링크 URL 매핑
 file_path_to_url = {
-    r'..\Data\ER32217 재학생장학금 지급지침.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=199&SEQ_HISTORY=526',
-    r'..\Data\FR00601 보건및기타.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_당직.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_복무.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_복무_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_복무_3.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_시간외야간r및휴일근무.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_임용및퇴직 복지후생.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_총칙.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00601 취업규칙_출장및파견 전보및사무인계.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
-    r'..\Data\FR00602 여비규칙_1.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=77&LAWGROUP=1&PAGE=1&SEQ_HISTORY=0',
-    r'..\Data\FR00602 여비규칙_국내출장비.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=77&SEQ_HISTORY=987',
-    r'..\Data\FR00602 여비규칙_국내출장비_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=77&LAWGROUP=1&PAGE=1&SEQ_HISTORY=0',
-    r'..\Data\FR00602 여비규칙_국외출장비.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=77&LAWGROUP=1&PAGE=1&SEQ_HISTORY=0',
-    r'..\Data\FR00602 여비규칙_국외출장비_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00602 여비규칙_보칙.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_계약의 이행.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_계약의 체결.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_계약의 체결_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_구매절차 및 방법.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_구매절차 및 방법_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_기타.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\FR00807 물품구매요령_총칙.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
-    r'..\Data\국내여비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\국내이전비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\국외여비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\국외이전비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\장기체제자 월액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
-    r'..\Data\기계공학부_학위취득절차_박사과정.txt': 'https://me.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000339/view.do',
-    r'..\Data\기계공학부_학위취득절차_박사과정2.txt': 'https://me.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000339/view.do',
-    r'..\Data\기계공학부_학위취득절차_석사과정.txt': 'https://me.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000339/view.do',
-    r'..\Data\지구환경공학부_학위취득절차_': 'https://env1.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000400/view.do',
-    r'..\Data\화학과_학위취득절차_박사.txt': 'https://chem.gist.ac.kr/thumbnail/html/viewer/BBS_202102191216481360.hwp/document.html',
-    r'..\Data\광주과학기술원_학위수여규정_1.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=64&SEQ_HISTORY=1076',
-    r'..\Data\광주과학기술원_학위수여규정_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=64&SEQ_HISTORY=1076'
+    r'../Data/ER32217 재학생장학금 지급지침.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=199&SEQ_HISTORY=526',
+    r'../Data/FR00601 보건및기타.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_당직.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_복무.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_복무_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_복무_3.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_시간외야간r및휴일근무.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_임용및퇴직 복지후생.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_총칙.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00601 취업규칙_출장및파견 전보및사무인계.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=76&SEQ_HISTORY=996&PAGE_MODE=1&LAWGROUP=1&TREE_MODE=0',
+    r'../Data/FR00602 여비규칙_1.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=77&LAWGROUP=1&PAGE=1&SEQ_HISTORY=0',
+    r'../Data/FR00602 여비규칙_국내출장비.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=77&SEQ_HISTORY=987',
+    r'../Data/FR00602 여비규칙_국내출장비_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=77&LAWGROUP=1&PAGE=1&SEQ_HISTORY=0',
+    r'../Data/FR00602 여비규칙_국외출장비.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail_areaC.do?SEQ=77&LAWGROUP=1&PAGE=1&SEQ_HISTORY=0',
+    r'../Data/FR00602 여비규칙_국외출장비_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00602 여비규칙_보칙.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_계약의 이행.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_계약의 체결.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_계약의 체결_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_구매절차 및 방법.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_구매절차 및 방법_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_기타.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/FR00807 물품구매요령_총칙.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=105&LAWGROUP=1&PAGE=1',
+    r'../Data/국내여비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/국내이전비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/국외여비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/국외이전비 정액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/장기체제자 월액표.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawDetail.do?SEQ=77&LAWGROUP=1&PAGE=1',
+    r'../Data/기계공학부_학위취득절차_박사과정.txt': 'https://me.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000339/view.do',
+    r'../Data/기계공학부_학위취득절차_박사과정2.txt': 'https://me.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000339/view.do',
+    r'../Data/기계공학부_학위취득절차_석사과정.txt': 'https://me.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000339/view.do',
+    r'../Data/지구환경공학부_학위취득절차_': 'https://env1.gist.ac.kr/prog/bbsArticle/BBSMSTR_000000000400/view.do',
+    r'../Data/화학과_학위취득절차_박사.txt': 'https://chem.gist.ac.kr/thumbnail/html/viewer/BBS_202102191216481360.hwp/document.html',
+    r'../Data/광주과학기술원_학위수여규정_1.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=64&SEQ_HISTORY=1076',
+    r'../Data/광주과학기술원_학위수여규정_2.txt': 'https://law.gist.ac.kr/lmxsrv/law/lawFullView.do?SEQ=64&SEQ_HISTORY=1076'
     # 필요한 다른 파일들도 여기에 추가
 }
 
@@ -142,7 +147,7 @@ def generate_answer(query, conversation_history, top_k=2):
 
 
 # Streamlit 앱 설정
-st.image(r"..\poligi.png", use_column_width=True)
+st.image(r"../poligi.png", use_column_width=True)
 st.header("🤖 Gist Policy App (Demo)")
 
 if 'generated' not in st.session_state:
